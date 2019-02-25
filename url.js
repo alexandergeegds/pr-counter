@@ -40,7 +40,9 @@ function buildQuery(options) {
             options.repos = [options.repos]
         }
         for (let repo of options.repos) {
-            query.push('repo:' + repo);
+            if (repo) {
+                query.push('repo:' + repo);
+            }
         }
     }
     query.push('is:pr');
@@ -58,7 +60,9 @@ function buildQuery(options) {
             options.authors = [options.authors]
         }
         for (let author of options.authors) {
-            query.push('author:' + author);
+            if (author) {
+                query.push('author:' + author);
+            }
         }
     }
     return query.join('+');
