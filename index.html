@@ -1,0 +1,39 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title>GitHub URL builder</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+    <style>
+    .container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .container textarea {
+        width: 70%;
+        height: 12ch;
+    }
+    </style>
+</head>
+
+<body>
+    <div class='container'>
+        <label for='urlType'>API / Search</label>
+        <textarea id='urlType' placeholder='api|search'></textarea>
+        <label for='repos'>Repositories</label>
+        <textarea id='repos' placeholder='username/repository'></textarea>
+        <label for='authors'>Authors</label>
+        <textarea id='authors' placeholder='github_username'></textarea>
+        <input id='start_date' type='date'></input>
+        <input id='end_date' type='date'></input>
+        <button id='generator'>Generate URL</button>
+        <div id='output'></div>
+    </div>
+    <script src="url.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>

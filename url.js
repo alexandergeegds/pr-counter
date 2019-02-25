@@ -9,6 +9,15 @@ const api = {
     prefix: 'https://api.github.com/search/issues'
 };
 
+window.build = build;
+function build(endpointString, options) {
+    if (endpointString == 'search') {
+        return buildUrl(search, options);
+    } else if (endpointString == 'api') {
+        return buildUrl(api, options);
+    }
+}
+
 function buildUrl(endpoint, options) {
     let query = buildQuery(options);
     if (endpoint.replacements) {
@@ -54,5 +63,3 @@ function buildQuery(options) {
     }
     return query.join('+');
 }
-
-console.log(buildUrl(search, options));
