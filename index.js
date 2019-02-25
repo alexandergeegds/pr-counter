@@ -34,7 +34,8 @@ function generate(type, repos, authors, start, end) {
 
 function dateToString(date) {
     let year = date.getUTCFullYear();
-    let month = date.getUTCMonth();
+    // remember to offset month by 1 to account for 0-indexing
+    let month = date.getUTCMonth() + 1;
     if (month < 10) {
         month = '0' + month;
     }
