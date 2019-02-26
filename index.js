@@ -1,6 +1,6 @@
 let options = {};
 
-const e_type = document.getElementById('urlType');
+const es_type = document.getElementsByName('urlType');
 const e_repos = document.getElementById('repos');
 const e_authors = document.getElementById('authors');
 const e_startDate = document.getElementById('start_date');
@@ -11,9 +11,16 @@ const e_generator = document.getElementById('generator');
 const URL_MAX_LENGTH = 120;
 
 function clickHandler() {
+    let type = '';
+    for (let i = 0; i < es_type.length; i++) {
+        if (es_type[i].checked) {
+            type = es_type[i].value;
+            break;
+        }
+    }
     let repos = e_repos.value.split(/\r?\n\r?/);
     let authors = e_authors.value.split(/\r?\n\r?/);
-    let generated = generate(e_type.value, repos, authors, e_startDate.value, e_endDate.value);
+    let generated = generate(type, repos, authors, e_startDate.value, e_endDate.value);
     let link = document.createElement('a');
     link.href = generated;
     link.innerText = generated.length > URL_MAX_LENGTH ? generated.substr(0, URL_MAX_LENGTH - 3) + '...' : generated;

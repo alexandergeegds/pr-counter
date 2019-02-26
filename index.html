@@ -23,8 +23,14 @@
 <body>
     <div class='container'>
         <a href='https://github.com/alexandergeegds/pr-counter/blob/master/readme.md'>Help</a>
-        <label for='urlType'>API / Search</label>
-        <textarea id='urlType' placeholder='api|search'></textarea>
+        <div>
+            <input id='urlTypeSearch' type='radio' name='urlType' value='search' checked='checked' />
+            <label for='urlTypeSearch'>Search</label>
+        </div>
+        <div>
+            <input id='urlTypeApi' type='radio' name='urlType' value='api' />
+            <label for='urlTypeApi'>API</label>
+        </div>
         <label for='repos'>Repositories</label>
         <textarea id='repos' placeholder='username/repository'></textarea>
         <label for='authors'>Authors</label>
