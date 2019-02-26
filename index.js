@@ -8,6 +8,9 @@ const e_endDate = document.getElementById('end_date');
 const e_output = document.getElementById('output');
 const e_generator = document.getElementById('generator');
 
+const lsKey_REPOS = 'pr-repos';
+const lsKey_AUTHORS = 'pr-authors';
+
 const URL_MAX_LENGTH = 120;
 
 function clickHandler() {
@@ -18,6 +21,8 @@ function clickHandler() {
             break;
         }
     }
+    lsSave(lsKey_REPOS, e_repos.value);
+    lsSave(lsKey_AUTHORS, e_authors.value);
     let repos = e_repos.value.split(/\r?\n\r?/);
     let authors = e_authors.value.split(/\r?\n\r?/);
     let generated = generate(type, repos, authors, e_startDate.value, e_endDate.value);
@@ -59,6 +64,12 @@ function dateMinusDays(date, days) {
 }
 
 function setupPage() {
+    if (lsGet(lsKey_REPOS)) {
+        e_repos.value = lsGet(lsKey_REPOS);
+    }
+    if (lsGet(lsKey_AUTHORS)) {
+        e_authors.value = lsGet(lsKey_AUTHORS);
+    }
     let today = new Date();
     let lastWeek = dateMinusDays(today, 7);
     e_startDate.value = dateToString(lastWeek);
