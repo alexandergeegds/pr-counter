@@ -34,12 +34,18 @@
             <input id='urlTypeApi' type='radio' name='urlType' value='api' />
             <label for='urlTypeApi'>API</label>
         </div>
-        <label for='repos'>Repositories</label>
+        <label for='repos'>Repositories ("owner/name" format - one per line)</label>
         <textarea id='repos' placeholder='username/repository'></textarea>
-        <label for='authors'>Authors</label>
+        <label for='authors'>Authors (one name per line)</label>
         <textarea id='authors' placeholder='github_username'></textarea>
-        <input id='start_date' type='date'></input>
-        <input id='end_date' type='date'></input>
+        <div>
+            <label for='start_date'>Start date:</label>
+            <input id='start_date' type='date'></input>
+        </div>
+        <div>
+            <label for='end_date'>End date:</label>
+            <input id='end_date' type='date'></input>
+        </div>
         <button id='generator'>Generate URL</button>
         <div id='output'></div>
     </div>
