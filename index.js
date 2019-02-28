@@ -7,6 +7,8 @@ const e_startDate = document.getElementById('start_date');
 const e_endDate = document.getElementById('end_date');
 const e_output = document.getElementById('output');
 const e_generator = document.getElementById('generator');
+const e_token = document.getElementById('github_token');
+const e_sender = document.getElementById('sender');
 
 const lsKey_REPOS = 'pr-repos';
 const lsKey_AUTHORS = 'pr-authors';
@@ -23,6 +25,14 @@ function generateAndAppend() {
         e_output.removeChild(e_output.firstChild);
     }
     e_output.appendChild(link);
+}
+
+function generateAndSend() {
+    let generated = generate();
+    // TODO: do something with the URL...
+    while (e_output.firstChild) {
+        e_output.removeChild(e_output.firstChild);
+    }
 }
 
 function generate() {
@@ -76,6 +86,8 @@ function setupPage() {
     e_startDate.value = dateToString(lastWeek);
     e_endDate.value = dateToString(today);
     e_generator.addEventListener('click', generateAndAppend, { passive: true });
+    e_sender.addEventListener('click', generateAndSend, { passive: true });
+    hide_related_keys(document.getElementById('urlTypeApi'), 'showForTypeApi');
 }
 
 if (typeof require == 'undefined') {
