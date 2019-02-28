@@ -29,10 +29,27 @@ function generateAndAppend() {
 
 function generateAndSend() {
     let generated = generate();
-    // TODO: do something with the URL...
+    let xhr = sendGetWithToken(generated, e_token.value, response => {
+        let responseData = JSON.parse(response.responseText);
+        let message = `Merged PRs: ${responseData.total_count}`;
+        if (responseData.incomplete_results) {
+            message += '\nPossible missing data reported.'
+                    + '\n(If accessing private repos, have you included a valid access token?)';
+        }
+        showOutputMessage(message);
+    }, response => {
+        console.error(response);
+        showOutputMessage('Request failed. See console for error message.');
+    });
     while (e_output.firstChild) {
         e_output.removeChild(e_output.firstChild);
     }
+}
+
+function showOutputMessage(message) {
+    let e_result = document.createElement('div');
+    e_result.innerText = message;
+    e_output.appendChild(e_result);
 }
 
 function generate() {
