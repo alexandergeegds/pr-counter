@@ -28,6 +28,7 @@ function clickHandler() {
     let generated = generate(type, repos, authors, e_startDate.value, e_endDate.value);
     let link = document.createElement('a');
     link.href = generated;
+    link.target = '_blank';
     link.innerText = generated.length > URL_MAX_LENGTH ? generated.substr(0, URL_MAX_LENGTH - 3) + '...' : generated;
     while (e_output.firstChild) {
         e_output.removeChild(e_output.firstChild);
