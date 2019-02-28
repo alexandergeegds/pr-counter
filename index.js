@@ -13,19 +13,8 @@ const lsKey_AUTHORS = 'pr-authors';
 
 const URL_MAX_LENGTH = 120;
 
-function clickHandler() {
-    let type = '';
-    for (let i = 0; i < es_type.length; i++) {
-        if (es_type[i].checked) {
-            type = es_type[i].value;
-            break;
-        }
-    }
-    lsSave(lsKey_REPOS, e_repos.value);
-    lsSave(lsKey_AUTHORS, e_authors.value);
-    let repos = e_repos.value.split(/\r?\n\r?/);
-    let authors = e_authors.value.split(/\r?\n\r?/);
-    let generated = generate(type, repos, authors, e_startDate.value, e_endDate.value);
+function generateAndAppend() {
+    let generated = generate();
     let link = document.createElement('a');
     link.href = generated;
     link.target = '_blank';
@@ -36,12 +25,23 @@ function clickHandler() {
     e_output.appendChild(link);
 }
 
-function generate(type, repos, authors, start, end) {
-    return window.build((type ? type : 'search'), {
+function generate() {
+    let type = 'search';
+    for (let i = 0; i < es_type.length; i++) {
+        if (es_type[i].checked) {
+            type = es_type[i].value;
+            break;
+        }
+    }
+    lsSave(lsKey_REPOS, e_repos.value);
+    lsSave(lsKey_AUTHORS, e_authors.value);
+    let repos = e_repos.value.split(/\r?\n\r?/);
+    let authors = e_authors.value.split(/\r?\n\r?/);
+    return window.build(type, {
         repos: repos,
         authors: authors,
-        start_date: start,
-        end_date: end
+        start_date: e_startDate.value,
+        end_date: e_endDate.value
     });
 }
 
@@ -75,9 +75,7 @@ function setupPage() {
     let lastWeek = dateMinusDays(today, 7);
     e_startDate.value = dateToString(lastWeek);
     e_endDate.value = dateToString(today);
-    e_generator.addEventListener('click', clickHandler, {
-        passive: true
-    })
+    e_generator.addEventListener('click', generateAndAppend, { passive: true });
 }
 
 if (typeof require == 'undefined') {
