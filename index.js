@@ -16,18 +16,17 @@ const lsKey_AUTHORS = 'pr-authors';
 const URL_MAX_LENGTH = 120;
 
 function generateAndAppend() {
+    clearOutputMessage();
     let generated = generate();
     let link = document.createElement('a');
     link.href = generated;
     link.target = '_blank';
     link.innerText = generated.length > URL_MAX_LENGTH ? generated.substr(0, URL_MAX_LENGTH - 3) + '...' : generated;
-    while (e_output.firstChild) {
-        e_output.removeChild(e_output.firstChild);
-    }
     e_output.appendChild(link);
 }
 
 function generateAndSend() {
+    clearOutputMessage();
     let generated = generate();
     let xhr = sendGetWithToken(generated, e_token.value, response => {
         let responseData = JSON.parse(response.responseText);
@@ -41,15 +40,18 @@ function generateAndSend() {
         console.error(response);
         showOutputMessage('Request failed. See console for error message.');
     });
-    while (e_output.firstChild) {
-        e_output.removeChild(e_output.firstChild);
-    }
 }
 
 function showOutputMessage(message) {
     let e_result = document.createElement('div');
     e_result.innerText = message;
     e_output.appendChild(e_result);
+}
+
+function clearOutputMessage() {
+    while (e_output.firstChild) {
+        e_output.removeChild(e_output.firstChild);
+    }
 }
 
 function generate() {
