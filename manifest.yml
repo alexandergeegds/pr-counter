@@ -1,0 +1,6 @@
+memory: 256M
+applications:
+  - name: pr-counter
+    buildpack: nodejs_buildpack
+    command: npm start
+    
