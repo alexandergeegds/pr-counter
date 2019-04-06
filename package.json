@@ -1,0 +1,24 @@
+{
+  "name": "pr-counter",
+  "version": "1.0.0",
+  "description": "pull request counter",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jkunle/pr-counter.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jkunle/pr-counter/issues"
+  },
+  "homepage": "https://github.com/jkunle/pr-counter#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "node-sass-middleware": "^0.11.0"
+  }
+}
