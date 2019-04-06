@@ -3,7 +3,15 @@ const express = require('express'),
                 sass = require('node-sass-middleware'),
                 app = express();
 
-const port = process.env.PORT || 3000;
+app.use(
+    sass({
+        src: path.join(__dirname,'public','assets'),
+        dest: path.join(__dirname,'public','stylesheets'),
+        debug: true,
+        outputStyle: 'compressed',
+        prefix: '/stylesheets'
+    })
+);
 
 app.use('/', express.static(path.join(__dirname,'/public')));
 app.use(
@@ -11,12 +19,5 @@ app.use(
     express.static(path.join(__dirname, '/node_modules/govuk-frontend/assets'))
 );
 
-app.use(
-    sass({
-        src: path.join(__dirname, '/public/assets'),
-        dest: path.join(__dirname,'/public/stylesheets'),
-        debug: true
-    })
-);
-
+const port = process.env.PORT || 3000;
 app.listen(port);
