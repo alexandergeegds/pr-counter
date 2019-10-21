@@ -1,0 +1,63 @@
+@startuml
+
+skinparam stateShape<<oct>> octagon
+
+state "Show help page" as help <<oct>>
+    help : Prompt to continue
+    help : Checks for previous data
+state "Show the summary page" as summary
+    summary : Ask for confirmation the data is correct
+
+state " " as using_api
+state "Send API request" as send
+    send : Displays number returned by API
+    send : or error if API call failed
+state "Generate URL" as generate
+    generate : Displays GitHub URL
+
+state "Gather input data" as data {
+    state "Ask whether the API or GitHub search should be used" as q_use_api
+
+    state "Prompt for (optional) API token" as g_token
+    state "Prompt for (optional) repository list" as g_repos
+    state "Prompt for (optional) author list" as g_authors
+    state "Prompt for (optional) start and end dates" as g_dates
+
+    q_use_api --> g_token : use API
+    g_token --> g_repos
+    q_use_api --> g_repos : use search
+    g_repos --> g_authors
+    g_authors --> g_dates
+}
+
+[*] --> help
+help --> summary : previous data exists
+help --> q_use_api : no previous data found
+
+g_dates --> summary
+summary --> q_use_api : rejected
+summary --> using_api : confirmed
+using_api --> send : if using GitHub API
+using_api --> generate : if using GitHub search
+
+send --> [*]
+generate --> [*]
+
+@enduml
+
+
+plantUML to DOT
+
+
+// replace nodes
+state ("[\w \(\)]+") as ([\w_]+)
+$2 [label=$1];
+
+// replace edges
+--> ([\w_]+)(?: : ([\w ]+))?
+-> $1 [label="$2"];
+
+ \[label=""\]
+
+
+ //

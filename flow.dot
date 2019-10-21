@@ -1,0 +1,304 @@
+digraph G {
+    node [shape=Mrecord];
+
+    start [label="",shape=circle,color=black,width=0.2];
+    end [label="",shape=circle,color=black,style=filled,width=0.2];
+    help [label="{Show help page | Prompt to continue}"];
+    check [label="Check for previous data",shape=diamond,margin=0];
+    summary [label="{Show the summary page | Ask for confirmation the data is correct}"];
+
+    using_api [label="",shape=point];
+    send [label="Send API request"];
+    send_succeed [label="Displays number returned by API"];
+    send_failed [label="Displays (human-readable) error message"];
+    generate [label="Generate URL"];
+    generate_succeed [label="Displays GitHub URL"];
+
+    subgraph cluster_data {
+        label="Gather input data";
+        labeljust=l;
+        color=black;
+
+        q_use_api [label="Ask whether the API or GitHub search should be used",shape=octagon,margin=0];
+
+        g_token [label="Prompt for (optional) API token",shape=rectangle];
+        g_repos [label="Prompt for (optional) repository list",shape=rectangle];
+        g_authors [label="Prompt for (optional) author list",shape=rectangle];
+        g_dates [label="Prompt for (optional) start and end dates",shape=rectangle];
+
+        q_use_api -> g_token [label="use API"];
+        g_token -> g_repos;
+        q_use_api -> g_repos [label="use search"];
+        g_repos -> g_authors;
+        g_authors -> g_dates;
+    }
+
+    start -> help;
+    help -> check;
+    check -> summary [label="previous data exists"];
+    check -> q_use_api [label="no previous data found"];
+
+    g_dates -> summary;
+    summary -> q_use_api [label="rejected"];
+    summary -> using_api [label="confirmed"];
+    using_api -> send [label="if using GitHub API"];
+    using_api -> generate [label="if using GitHub search"];
+    send -> send_succeed [label="request succeeds"];
+    send -> send_failed [label="request fails"];
+    generate -> generate_succeed;
+    send_succeed -> end;
+    send_failed -> end;
+    generate_succeed -> end;
+}
+
+
+<svg width="1051pt" height="670pt" viewBox="0.00 0.00 1051.00 670.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 666)">
+<title>G</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-666 1048,-666 1048,5 -4,5"></polygon>
+<g id="graph2" class="cluster"><title>cluster_data</title>
+<polygon fill="none" stroke="black" points="8,-8 8,-440 396,-440 396,-8 8,-8"></polygon>
+<text text-anchor="middle" x="64.594" y="-423.4" font-family="Times,serif" font-size="14.00">Gather input data</text>
+</g>
+<!-- start -->
+<g id="node1" class="node"><title>start</title>
+<ellipse fill="none" stroke="black" cx="411" cy="-655" rx="7" ry="7"></ellipse>
+</g>
+<!-- help -->
+<g id="node3" class="node"><title>help</title>
+<polyline fill="none" stroke="black" points="361.337,-559.2 460.663,-559.2 "></polyline>
+<path fill="none" stroke="black" d="M460.663,-559.2C466.663,-559.2 472.663,-565.2 472.663,-571.2"></path>
+<polyline fill="none" stroke="black" points="472.663,-571.2 472.663,-596.8 "></polyline>
+<path fill="none" stroke="black" d="M472.663,-596.8C472.663,-602.8 466.663,-608.8 460.663,-608.8"></path>
+<polyline fill="none" stroke="black" points="460.663,-608.8 361.337,-608.8 "></polyline>
+<path fill="none" stroke="black" d="M361.337,-608.8C355.337,-608.8 349.337,-602.8 349.337,-596.8"></path>
+<polyline fill="none" stroke="black" points="349.337,-596.8 349.337,-571.2 "></polyline>
+<path fill="none" stroke="black" d="M349.337,-571.2C349.337,-565.2 355.337,-559.2 361.337,-559.2"></path>
+<text text-anchor="middle" x="411" y="-592.2" font-family="Times,serif" font-size="14.00">Show help page</text>
+<polyline fill="none" stroke="black" points="349.337,-584 472.663,-584 "></polyline>
+<text text-anchor="middle" x="411" y="-567.4" font-family="Times,serif" font-size="14.00">Prompt to continue</text>
+</g>
+<!-- start&#45;&gt;help -->
+<g id="edge13" class="edge"><title>start-&gt;help</title>
+<path fill="none" stroke="black" d="M411,-647.632C411,-641.008 411,-630.103 411,-619.233"></path>
+<polygon fill="black" stroke="black" points="414.5,-618.963 411,-608.963 407.5,-618.963 414.5,-618.963"></polygon>
+</g>
+<!-- end -->
+<g id="node2" class="node"><title>end</title>
+<ellipse fill="black" stroke="black" cx="782" cy="-34" rx="7" ry="7"></ellipse>
+</g>
+<!-- check -->
+<g id="node4" class="node"><title>check</title>
+<polygon fill="none" stroke="black" points="411,-520 303.659,-502 411,-484 518.341,-502 411,-520"></polygon>
+<text text-anchor="middle" x="411" y="-497.8" font-family="Times,serif" font-size="14.00">Check for previous data</text>
+</g>
+<!-- help&#45;&gt;check -->
+<g id="edge15" class="edge"><title>help-&gt;check</title>
+<path fill="none" stroke="black" d="M411,-558.997C411,-550 411,-539.709 411,-530.424"></path>
+<polygon fill="black" stroke="black" points="414.5,-530.125 411,-520.125 407.5,-530.125 414.5,-530.125"></polygon>
+</g>
+<!-- summary -->
+<g id="node5" class="node"><title>summary</title>
+<polyline fill="none" stroke="black" points="461.6,-365.2 674.4,-365.2 "></polyline>
+<path fill="none" stroke="black" d="M674.4,-365.2C680.4,-365.2 686.4,-371.2 686.4,-377.2"></path>
+<polyline fill="none" stroke="black" points="686.4,-377.2 686.4,-402.8 "></polyline>
+<path fill="none" stroke="black" d="M686.4,-402.8C686.4,-408.8 680.4,-414.8 674.4,-414.8"></path>
+<polyline fill="none" stroke="black" points="674.4,-414.8 461.6,-414.8 "></polyline>
+<path fill="none" stroke="black" d="M461.6,-414.8C455.6,-414.8 449.6,-408.8 449.6,-402.8"></path>
+<polyline fill="none" stroke="black" points="449.6,-402.8 449.6,-377.2 "></polyline>
+<path fill="none" stroke="black" d="M449.6,-377.2C449.6,-371.2 455.6,-365.2 461.6,-365.2"></path>
+<text text-anchor="middle" x="568" y="-398.2" font-family="Times,serif" font-size="14.00">Show the summary page</text>
+<polyline fill="none" stroke="black" points="449.6,-390 686.4,-390 "></polyline>
+<text text-anchor="middle" x="568" y="-373.4" font-family="Times,serif" font-size="14.00">Ask for confirmation the data is correct</text>
+</g>
+<!-- check&#45;&gt;summary -->
+<g id="edge17" class="edge"><title>check-&gt;summary</title>
+<path fill="none" stroke="black" d="M430.884,-487.068C454.567,-470.476 494.786,-442.297 525.559,-420.736"></path>
+<polygon fill="black" stroke="black" points="527.785,-423.45 533.967,-414.845 523.768,-417.717 527.785,-423.45"></polygon>
+<text text-anchor="middle" x="540.208" y="-452.8" font-family="Times,serif" font-size="14.00">previous data exists</text>
+</g>
+<!-- q_use_api -->
+<g id="node13" class="node"><title>q_use_api</title>
+<polygon fill="none" stroke="black" points="387.906,-382.544 387.906,-397.456 279.005,-408 124.995,-408 16.0944,-397.456 16.0944,-382.544 124.995,-372 279.005,-372 387.906,-382.544"></polygon>
+<text text-anchor="middle" x="202" y="-385.8" font-family="Times,serif" font-size="14.00">Ask whether the API or GitHub search should be used</text>
+</g>
+<!-- check&#45;&gt;q_use_api -->
+<g id="edge19" class="edge"><title>check-&gt;q_use_api</title>
+<path fill="none" stroke="black" d="M380.317,-488.941C364.811,-482.575 345.829,-474.362 329.309,-466 297.51,-449.904 262.728,-429.188 237.568,-413.608"></path>
+<polygon fill="black" stroke="black" points="239.095,-410.436 228.757,-408.118 235.394,-416.377 239.095,-410.436"></polygon>
+<text text-anchor="middle" x="394.345" y="-452.8" font-family="Times,serif" font-size="14.00">no previous data found</text>
+</g>
+<!-- using_api -->
+<g id="node6" class="node"><title>using_api</title>
+<ellipse fill="black" stroke="black" cx="724" cy="-292" rx="1.8" ry="1.8"></ellipse>
+</g>
+<!-- summary&#45;&gt;using_api -->
+<g id="edge25" class="edge"><title>summary-&gt;using_api</title>
+<path fill="none" stroke="black" d="M606.963,-365.023C642.705,-343.028 693.181,-311.966 714.21,-299.024"></path>
+<polygon fill="black" stroke="black" points="716.3,-301.848 722.983,-293.626 712.632,-295.886 716.3,-301.848"></polygon>
+<text text-anchor="middle" x="692.766" y="-332.8" font-family="Times,serif" font-size="14.00">confirmed</text>
+</g>
+<!-- summary&#45;&gt;q_use_api -->
+<g id="edge23" class="edge"><title>summary-&gt;q_use_api</title>
+<path fill="none" stroke="black" d="M449.288,-390C432.843,-390 415.605,-390 398.206,-390"></path>
+<polygon fill="black" stroke="black" points="397.949,-386.5 387.949,-390 397.949,-393.5 397.949,-386.5"></polygon>
+<text text-anchor="middle" x="418.8" y="-397.2" font-family="Times,serif" font-size="14.00">rejected</text>
+</g>
+<!-- send -->
+<g id="node7" class="node"><title>send</title>
+<polyline fill="none" stroke="black" points="679.014,-183 768.986,-183 "></polyline>
+<path fill="none" stroke="black" d="M768.986,-183C774.986,-183 780.986,-189 780.986,-195"></path>
+<polyline fill="none" stroke="black" points="780.986,-195 780.986,-207 "></polyline>
+<path fill="none" stroke="black" d="M780.986,-207C780.986,-213 774.986,-219 768.986,-219"></path>
+<polyline fill="none" stroke="black" points="768.986,-219 679.014,-219 "></polyline>
+<path fill="none" stroke="black" d="M679.014,-219C673.014,-219 667.014,-213 667.014,-207"></path>
+<polyline fill="none" stroke="black" points="667.014,-207 667.014,-195 "></polyline>
+<path fill="none" stroke="black" d="M667.014,-195C667.014,-189 673.014,-183 679.014,-183"></path>
+<text text-anchor="middle" x="724" y="-196.8" font-family="Times,serif" font-size="14.00">Send API request</text>
+</g>
+<!-- using_api&#45;&gt;send -->
+<g id="edge27" class="edge"><title>using_api-&gt;send</title>
+<path fill="none" stroke="black" d="M724,-290C724,-284.072 724,-252.978 724,-229.417"></path>
+<polygon fill="black" stroke="black" points="727.5,-229.239 724,-219.239 720.5,-229.239 727.5,-229.239"></polygon>
+<text text-anchor="middle" x="780.965" y="-242.8" font-family="Times,serif" font-size="14.00">if using GitHub API</text>
+</g>
+<!-- generate -->
+<g id="node10" class="node"><title>generate</title>
+<polyline fill="none" stroke="black" points="832.994,-183 907.006,-183 "></polyline>
+<path fill="none" stroke="black" d="M907.006,-183C913.006,-183 919.006,-189 919.006,-195"></path>
+<polyline fill="none" stroke="black" points="919.006,-195 919.006,-207 "></polyline>
+<path fill="none" stroke="black" d="M919.006,-207C919.006,-213 913.006,-219 907.006,-219"></path>
+<polyline fill="none" stroke="black" points="907.006,-219 832.994,-219 "></polyline>
+<path fill="none" stroke="black" d="M832.994,-219C826.994,-219 820.994,-213 820.994,-207"></path>
+<polyline fill="none" stroke="black" points="820.994,-207 820.994,-195 "></polyline>
+<path fill="none" stroke="black" d="M820.994,-195C820.994,-189 826.994,-183 832.994,-183"></path>
+<text text-anchor="middle" x="870" y="-196.8" font-family="Times,serif" font-size="14.00">Generate URL</text>
+</g>
+<!-- using_api&#45;&gt;generate -->
+<g id="edge29" class="edge"><title>using_api-&gt;generate</title>
+<path fill="none" stroke="black" d="M725.592,-290.964C736.638,-290.633 802.558,-287.362 841,-256 849.72,-248.886 856.184,-238.435 860.768,-228.618"></path>
+<polygon fill="black" stroke="black" points="864.095,-229.734 864.74,-219.159 857.641,-227.024 864.095,-229.734"></polygon>
+<text text-anchor="middle" x="918.565" y="-242.8" font-family="Times,serif" font-size="14.00">if using GitHub search</text>
+</g>
+<!-- send_succeed -->
+<g id="node8" class="node"><title>send_succeed</title>
+<polyline fill="none" stroke="black" points="691.526,-91 872.474,-91 "></polyline>
+<path fill="none" stroke="black" d="M872.474,-91C878.474,-91 884.474,-97 884.474,-103"></path>
+<polyline fill="none" stroke="black" points="884.474,-103 884.474,-115 "></polyline>
+<path fill="none" stroke="black" d="M884.474,-115C884.474,-121 878.474,-127 872.474,-127"></path>
+<polyline fill="none" stroke="black" points="872.474,-127 691.526,-127 "></polyline>
+<path fill="none" stroke="black" d="M691.526,-127C685.526,-127 679.526,-121 679.526,-115"></path>
+<polyline fill="none" stroke="black" points="679.526,-115 679.526,-103 "></polyline>
+<path fill="none" stroke="black" d="M679.526,-103C679.526,-97 685.526,-91 691.526,-91"></path>
+<text text-anchor="middle" x="782" y="-104.8" font-family="Times,serif" font-size="14.00">Displays number returned by API</text>
+</g>
+<!-- send&#45;&gt;send_succeed -->
+<g id="edge31" class="edge"><title>send-&gt;send_succeed</title>
+<path fill="none" stroke="black" d="M735.183,-182.647C743.688,-169.449 755.532,-151.071 765.178,-136.103"></path>
+<polygon fill="black" stroke="black" points="768.376,-137.601 770.851,-127.3 762.492,-133.809 768.376,-137.601"></polygon>
+<text text-anchor="middle" x="804.836" y="-150.8" font-family="Times,serif" font-size="14.00">request succeeds</text>
+</g>
+<!-- send_failed -->
+<g id="node9" class="node"><title>send_failed</title>
+<polyline fill="none" stroke="black" points="424.196,-91 649.804,-91 "></polyline>
+<path fill="none" stroke="black" d="M649.804,-91C655.804,-91 661.804,-97 661.804,-103"></path>
+<polyline fill="none" stroke="black" points="661.804,-103 661.804,-115 "></polyline>
+<path fill="none" stroke="black" d="M661.804,-115C661.804,-121 655.804,-127 649.804,-127"></path>
+<polyline fill="none" stroke="black" points="649.804,-127 424.196,-127 "></polyline>
+<path fill="none" stroke="black" d="M424.196,-127C418.196,-127 412.196,-121 412.196,-115"></path>
+<polyline fill="none" stroke="black" points="412.196,-115 412.196,-103 "></polyline>
+<path fill="none" stroke="black" d="M412.196,-103C412.196,-97 418.196,-91 424.196,-91"></path>
+<text text-anchor="middle" x="537" y="-104.8" font-family="Times,serif" font-size="14.00">Displays (human-readable) error message</text>
+</g>
+<!-- send&#45;&gt;send_failed -->
+<g id="edge33" class="edge"><title>send-&gt;send_failed</title>
+<path fill="none" stroke="black" d="M688.387,-182.86C658.102,-168.284 614.459,-147.28 581.806,-131.564"></path>
+<polygon fill="black" stroke="black" points="583.009,-128.259 572.481,-127.076 579.974,-134.567 583.009,-128.259"></polygon>
+<text text-anchor="middle" x="681.013" y="-150.8" font-family="Times,serif" font-size="14.00">request fails</text>
+</g>
+<!-- send_succeed&#45;&gt;end -->
+<g id="edge37" class="edge"><title>send_succeed-&gt;end</title>
+<path fill="none" stroke="black" d="M782,-90.7C782,-78.6838 782,-62.7864 782,-51.0519"></path>
+<polygon fill="black" stroke="black" points="785.5,-51.0029 782,-41.003 778.5,-51.003 785.5,-51.0029"></polygon>
+</g>
+<!-- send_failed&#45;&gt;end -->
+<g id="edge39" class="edge"><title>send_failed-&gt;end</title>
+<path fill="none" stroke="black" d="M594.132,-90.9769C650.029,-74.3221 731.604,-50.0159 765.884,-39.802"></path>
+<polygon fill="black" stroke="black" points="767.006,-43.1197 775.59,-36.9098 765.007,-36.4111 767.006,-43.1197"></polygon>
+</g>
+<!-- generate_succeed -->
+<g id="node11" class="node"><title>generate_succeed</title>
+<polyline fill="none" stroke="black" points="914.009,-91 1031.99,-91 "></polyline>
+<path fill="none" stroke="black" d="M1031.99,-91C1037.99,-91 1043.99,-97 1043.99,-103"></path>
+<polyline fill="none" stroke="black" points="1043.99,-103 1043.99,-115 "></polyline>
+<path fill="none" stroke="black" d="M1043.99,-115C1043.99,-121 1037.99,-127 1031.99,-127"></path>
+<polyline fill="none" stroke="black" points="1031.99,-127 914.009,-127 "></polyline>
+<path fill="none" stroke="black" d="M914.009,-127C908.009,-127 902.009,-121 902.009,-115"></path>
+<polyline fill="none" stroke="black" points="902.009,-115 902.009,-103 "></polyline>
+<path fill="none" stroke="black" d="M902.009,-103C902.009,-97 908.009,-91 914.009,-91"></path>
+<text text-anchor="middle" x="973" y="-104.8" font-family="Times,serif" font-size="14.00">Displays GitHub URL</text>
+</g>
+<!-- generate&#45;&gt;generate_succeed -->
+<g id="edge35" class="edge"><title>generate-&gt;generate_succeed</title>
+<path fill="none" stroke="black" d="M889.859,-182.647C905.676,-168.827 927.993,-149.326 945.524,-134.008"></path>
+<polygon fill="black" stroke="black" points="947.974,-136.515 953.202,-127.3 943.368,-131.244 947.974,-136.515"></polygon>
+</g>
+<!-- generate_succeed&#45;&gt;end -->
+<g id="edge41" class="edge"><title>generate_succeed-&gt;end</title>
+<path fill="none" stroke="black" d="M928.219,-90.8847C886.363,-74.8873 826.195,-51.8912 797.878,-41.0684"></path>
+<polygon fill="black" stroke="black" points="798.992,-37.7476 788.402,-37.4468 796.493,-44.2863 798.992,-37.7476"></polygon>
+</g>
+<!-- g_token -->
+<g id="node14" class="node"><title>g_token</title>
+<polygon fill="none" stroke="black" points="237.306,-310 40.6936,-310 40.6936,-274 237.306,-274 237.306,-310"></polygon>
+<text text-anchor="middle" x="139" y="-287.8" font-family="Times,serif" font-size="14.00">Prompt for (optional) API token</text>
+</g>
+<!-- q_use_api&#45;&gt;g_token -->
+<g id="edge3" class="edge"><title>q_use_api-&gt;g_token</title>
+<path fill="none" stroke="black" d="M190.737,-371.837C181.061,-357.094 166.969,-335.619 155.934,-318.804"></path>
+<polygon fill="black" stroke="black" points="158.578,-316.454 150.166,-310.014 152.726,-320.295 158.578,-316.454"></polygon>
+<text text-anchor="middle" x="195.354" y="-332.8" font-family="Times,serif" font-size="14.00">use API</text>
+</g>
+<!-- g_repos -->
+<g id="node15" class="node"><title>g_repos</title>
+<polygon fill="none" stroke="black" points="355.974,-219 140.026,-219 140.026,-183 355.974,-183 355.974,-219"></polygon>
+<text text-anchor="middle" x="248" y="-196.8" font-family="Times,serif" font-size="14.00">Prompt for (optional) repository list</text>
+</g>
+<!-- q_use_api&#45;&gt;g_repos -->
+<g id="edge7" class="edge"><title>q_use_api-&gt;g_repos</title>
+<path fill="none" stroke="black" d="M210.702,-371.777C214.317,-364.053 218.292,-354.731 221,-346 233.292,-306.362 240.883,-258.758 244.772,-229.442"></path>
+<polygon fill="black" stroke="black" points="248.291,-229.519 246.084,-219.157 241.347,-228.634 248.291,-229.519"></polygon>
+<text text-anchor="middle" x="266.954" y="-287.8" font-family="Times,serif" font-size="14.00">use search</text>
+</g>
+<!-- g_token&#45;&gt;g_repos -->
+<g id="edge5" class="edge"><title>g_token-&gt;g_repos</title>
+<path fill="none" stroke="black" d="M160.016,-273.84C176.83,-260.112 200.585,-240.715 219.174,-225.537"></path>
+<polygon fill="black" stroke="black" points="221.516,-228.143 227.048,-219.107 217.089,-222.721 221.516,-228.143"></polygon>
+</g>
+<!-- g_authors -->
+<g id="node16" class="node"><title>g_authors</title>
+<polygon fill="none" stroke="black" points="353.228,-127 158.772,-127 158.772,-91 353.228,-91 353.228,-127"></polygon>
+<text text-anchor="middle" x="256" y="-104.8" font-family="Times,serif" font-size="14.00">Prompt for (optional) author list</text>
+</g>
+<!-- g_repos&#45;&gt;g_authors -->
+<g id="edge9" class="edge"><title>g_repos-&gt;g_authors</title>
+<path fill="none" stroke="black" d="M249.542,-182.647C250.682,-169.823 252.257,-152.108 253.566,-137.381"></path>
+<polygon fill="black" stroke="black" points="257.063,-137.57 254.462,-127.3 250.091,-136.95 257.063,-137.57"></polygon>
+</g>
+<!-- g_dates -->
+<g id="node17" class="node"><title>g_dates</title>
+<polygon fill="none" stroke="black" points="384.286,-52 141.714,-52 141.714,-16 384.286,-16 384.286,-52"></polygon>
+<text text-anchor="middle" x="263" y="-29.8" font-family="Times,serif" font-size="14.00">Prompt for (optional) start and end dates</text>
+</g>
+<!-- g_authors&#45;&gt;g_dates -->
+<g id="edge11" class="edge"><title>g_authors-&gt;g_dates</title>
+<path fill="none" stroke="black" d="M257.659,-90.7C258.47,-82.2452 259.465,-71.8688 260.375,-62.3732"></path>
+<polygon fill="black" stroke="black" points="263.882,-62.4643 261.353,-52.1758 256.914,-61.796 263.882,-62.4643"></polygon>
+</g>
+<!-- g_dates&#45;&gt;summary -->
+<g id="edge21" class="edge"><title>g_dates-&gt;summary</title>
+<path fill="none" stroke="black" d="M334.436,-52.0801C360.633,-62.9594 384,-80.3994 384,-108 384,-293 384,-293 384,-293 384,-326.778 408.674,-348.69 439.952,-362.898"></path>
+<polygon fill="black" stroke="black" points="438.816,-366.218 449.39,-366.885 441.539,-359.769 438.816,-366.218"></polygon>
+</g>
+</g>
+</svg>
